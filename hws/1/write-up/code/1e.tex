@@ -1,0 +1,12 @@
+\begin{lstlisting}[language=haskell]
+isbag :: Eq a => Bag a -> Bag a -> Bag a
+isbag [] [] = []
+isbag [] set_2 = []
+isbag set_1 [] = []
+isbag ((value, counter):tail) set_2 =
+    if subbag ([(value, counter)] ++ tail) set_2 then do ([(value, counter)] ++ tail) 
+    else if subbag [(value, counter)] set_2 then do isbag (tail ++ [(value, counter)]) ((del value set_2) ++ [(value, counter)])
+    else do 
+        if counter == 1 then do isbag tail set_2
+        else do isbag ([(value, counter-1)] ++ tail) set_2
+\end{lstlisting}

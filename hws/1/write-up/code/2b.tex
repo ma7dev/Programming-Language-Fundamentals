@@ -1,0 +1,7 @@
+\begin{lstlisting}[language=haskell]
+suc :: Node -> Graph -> [Node]
+suc node [] = []
+suc node ((source,destination):tail) =
+    if node == source then do norm([destination] ++ suc node tail)
+    else do suc node tail
+\end{lstlisting}

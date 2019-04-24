@@ -1,0 +1,9 @@
+\begin{lstlisting}[language=haskell]
+del :: Eq a => a -> Bag a -> Bag a
+del target [] = []
+del target ((value, counter):tail) =
+    if value == target then do
+        if counter <= 1 then do tail
+        else do [(value, counter-1)] ++ tail
+    else do [(value, counter)] ++ del target tail
+\end{lstlisting}

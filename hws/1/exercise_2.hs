@@ -1,15 +1,5 @@
--- Pre-defined Functions
-import Data.List (nub,sort)
+import HW1types
 
-type Node  = Int
-type Edge  = (Node,Node)
-type Graph = [Edge]
-type Path  = [Node]
-
-norm :: Ord a => [a] -> [a]
-norm = sort . nub
-
--- Global Variables
 g :: Graph
 g = [(1,2),(1,3),(2,3),(2,4),(3,4)]
 h :: Graph
@@ -38,4 +28,4 @@ detach node ((source,destination):tail) =
 cyc :: Int -> Graph
 cyc 0 = []
 cyc 1 = [(1,1)]
-cyc num = zip ([1..num] ++ [1]) (tail ([1..num] ++ [1]))
+cyc num = zip ([1..num]) (tail ([1..num] ++ [1]))

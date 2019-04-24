@@ -1,0 +1,6 @@
+\begin{lstlisting}[language=haskell]
+minX :: Shape -> Number
+minX (Pt (x,_)) = x
+minX (Circle (x,_) r) = x - r
+minX (Rect (x,_) _ _) = x
+\end{lstlisting}

@@ -1,0 +1,5 @@
+\begin{lstlisting}[language=haskell]
+bag :: Eq a => [a] -> Bag a
+bag [] = []
+bag (head:tail) = ins head (bag tail)
+\end{lstlisting}

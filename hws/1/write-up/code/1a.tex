@@ -1,0 +1,7 @@
+\begin{lstlisting}[language=haskell]
+ins :: Eq a => a -> Bag a -> Bag a
+ins new_elem [] = [(new_elem, 1)]
+ins new_elem ((value, counter):tail) =
+    if new_elem == value then do [(value, counter+1)] ++ tail
+    else do [(value, counter)] ++ ins new_elem tail
+\end{lstlisting}

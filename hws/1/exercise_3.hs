@@ -21,7 +21,6 @@ width (Pt _) = 0
 width (Circle _ r) = r*2
 width (Rect _ wdth _) = wdth
 
-
 -- b) Define the function bbox that computes the bounding box of a shape.
 bbox :: Shape -> BBox
 bbox (Pt point) = (point,point)
@@ -47,41 +46,51 @@ move (Rect point_1 wdth hght) point_2 = (Rect (addPt point_1 point_2) wdth hght)
 
 -- e) Define a function alignLeft that transforms one figure into another one in which all shapes have the same minX coordinate but are otherwise unchanged.
 moveToX :: Number -> Shape -> Shape
-moveToX (Pt point) = minX (Pt point)
-moveToX (Circle point r) = minX (Circle point r)
-moveToX (Rect point wdth hght) = minX (React point wdth hght)
+moveToX new_x (Pt (_,y)) = Pt (new_x,y)
+moveToX new_x (Circle (_,y) r) = Circle (new_x,y) r
+moveToX new_x (Rect (_,y) wdth hght) = Rect (new_x,y) wdth hght
 
 
 alignLeft :: Figure -> Figure
 alignLeft [] = []
-alignLeft figure = map moveToX
+alignLeft figure = map (moveToX (minimum(map minX figure))) figure
 
 -- f) Define a function inside that checks whether one shape is inside of another one, that is, whether the area covered by the first shape is also covered by the second shape.
-getDistance :: Point -> Point -> Int
-getDistance (x_p, y_p) (x_c,y_c) = sqrt ((x_p - x_c)^2 + (y_p - y_c)^2)
- 
+sqr :: Number->Number
+sqr num = num*num
 
 inside :: Shape -> Shape -> Bool
 inside (Pt (x_1,y_1)) (Pt (x_2,y_2)) =
     if x_1 == x_2 && y_1 == y_2 then do True
     else do False
 inside (Pt (x_1, y_1)) (Circle (x_2,y_2) r) =
-    if sqrt ((x_1 - x_2)^2 + (y_1 - y_2)^2) <= r then do True
+    if round(sqrt (fromIntegral ( sqr (x_1 - x_2) + sqr (y_1 - y_2)))) <= r then do True
     else do False
-inside (Pt (x_1, y_1)) (React (x_2,y_2) wdth hght) =
-    if x_1 >= x_2 && x_1 <= (x_2 + wdth) && y_1 >= y_2 && y_2 <= (y_2 + hght)  then do True
+inside (Pt (x_1, y_1)) (Rect (x_2,y_2) wdth hght) =
+    if x_1 >= x_2 && x_1 <= (x_2 + wdth) && y_1 >= y_2 && y_1 <= (y_2 + hght)  then do True
     else do False
 inside (Circle (x_1,y_1) r) (Pt (x_2, y_2)) =
-    if sqrt ((x_2 - x_1)^2 + (y_2 - y_1)^2) < r then do True
+    if x_1 == x_2 && y_1 == y_2 && r == 0 then do True
     else do False
 inside (Circle (x_1,y_1) r_1) (Circle (x_2,y_2) r_2) =
-    
+    if round(sqrt (fromIntegral( sqr (x_2 - x_1) + sqr (y_2 - y_1)))) > (r_1 + r_2) then do False
+    else if round(sqrt (fromIntegral( sqr (x_2 - x_1) + sqr (y_2 - y_1)))) <= (abs (r_1 - r_2)) then do True
+
+    else do False
 inside (Circle (x_1,y_1) r) (Rect (x_2,y_2) wdth hght) =
-
+    if (x_1 - r) >= x_2 && (y_1 - r) >= y_2 && (x_2 + r) <= (x_2 + wdth) && (y_2 + r) <= (y_2 + hght) then do True
+    else do False
 inside (Rect (x_1,y_1) wdth hght) (Pt (x_2, y_2)) =
-
+    if x_2 >= x_1 && x_2 <= (x_1 + wdth) && y_2 >= y_1 && y_2 <= (y_1 + hght)  then do True
+    else do False
 inside (Rect (x_1,y_1) wdth hght) (Circle (x_2,y_2) r) =
-
+    if inside (Pt (x_1,y_1)) (Circle (x_2,y_2) r) &&
+    inside (Pt (x_1+wdth,y_1)) (Circle (x_2,y_2) r) &&
+    inside (Pt (x_1,y_1+hght)) (Circle (x_2,y_2) r) &&
+    inside (Pt (x_1+wdth,y_1+hght)) (Circle (x_2,y_2) r) then do True
+    else do False
+       
 inside (Rect (x_1,y_1) wdth_1 hght_1) (Rect (x_2, y_2) wdth_2 hght_2) =
-
+    if x_1 >= x_2 && (x_1 + wdth_2) <= (x_2 + wdth_2) && y_1 >= y_2 && (y_1 + hght_1) <= (y_2 + hght_2)  then do True
+    else do False
 

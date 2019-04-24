@@ -23,7 +23,7 @@ bag (head:tail) = ins head (bag tail)
 
 -- d) Define a function subbag that determines whether or not its first argument bag is contained in the second.
 subbag :: Eq a => Bag a -> Bag a -> Bool
-subbag [] [] = False
+subbag [] [] = True
 subbag ((value, counter):tail) [] = False
 subbag [] set = True
 subbag ((value, counter):tail) set = 
@@ -55,7 +55,9 @@ isbag set_1 [] = []
 isbag ((value, counter):tail) set_2 =
     if subbag ([(value, counter)] ++ tail) set_2 then do ([(value, counter)] ++ tail) 
     else if subbag [(value, counter)] set_2 then do isbag (tail ++ [(value, counter)]) ((del value set_2) ++ [(value, counter)])
-    else do isbag ([(value, counter-1)] ++ tail) set_2
+    else do 
+        if counter == 1 then do isbag tail set_2
+        else do isbag ([(value, counter-1)] ++ tail) set_2
     
 -- f) Define a function size that computes the number of elements contained in a bag.
 size :: Bag a -> Int
