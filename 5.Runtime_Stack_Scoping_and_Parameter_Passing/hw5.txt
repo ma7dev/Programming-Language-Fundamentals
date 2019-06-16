@@ -1,0 +1,47 @@
+
+Homework 5
+
+
+-- Exercise 1. Running Stack
+[]
+[x:?]
+[y:?,x:?]
+[y:1,x:?]
+[f{},y:1,x:?]
+[x:2,f{},y:1,x:?]
+[x:1,x:2,f{},y:1,x:?]
+[x:0,x:1,x:2,f{},y:1,x:?]
+[x:1,x:2,f{},y:2,x:?]
+[x:2,f{},y:4,x:?]
+[f{},y:4,x:4]
+[y:4,x:4]
+[x:4]
+[]
+
+
+-- Exercise 2. Static and Dynamic Scoping
+[]
+[x:?]
+[y:?,x:?]
+[z:?,y:?,x:?]
+[z:?,y:7,x:3]
+[f{},z:?,y:7,x:3,]
+[y:?,f{},z:?,y:7,x:3]
+[y:11,f{},z:?,y:7,x:3]
+[g{},y:11,f{},z:?,y:7,x:3]
+[y:?,g{},y:11,f{},z:?,y:7,x:3]
+[y:13,g{},y:11,f{},z:?,y:7,x:3]
+Static
+[x:2,y:13,g{},y:11,f{},z:?,y:7,x:3]
+[y:7,x:2,y:13,g{},y:11,f{},z:?,y:7,x:3]
+[y:13,g{},y:11,f{},z:21,y:7,x:3]
+Dynamic
+[x:2,y:13,g{},y:11,f{},z:?,y:7,x:3]
+[y:13,x:2,y:13,g{},y:11,f{},z:?,y:7,x:3]
+[y:13,g{},y:11,f{},z:226,y:7,x:3]
+
+-- a) The value assigned under static scoping is 21
+-- b) The value assigned under dynamic scoping is 26
+
+
+-- Exercise 3. Parameter Passing

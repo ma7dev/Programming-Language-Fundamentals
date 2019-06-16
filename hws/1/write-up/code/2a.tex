@@ -1,5 +1,0 @@
-\begin{lstlisting}[language=haskell]
-nodes :: Graph -> [Node]
-nodes [] = []
-nodes ((source,destination):tail) = norm([source,destination] ++ nodes tail)
-\end{lstlisting}

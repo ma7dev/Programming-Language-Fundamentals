@@ -1,9 +1,0 @@
-\begin{lstlisting}[language=haskell]
-addPt :: Point -> Point -> Point
-addPt (x_1,y_1) (x_2,y_2) = (x_1 + x_2, y_1 + y_2)
-
-move :: Shape -> Point -> Shape
-move (Pt point_1) point_2 = (Pt (addPt point_1 point_2)) 
-move (Circle point_1 r) point_2 = (Circle (addPt point_1 point_2) r) 
-move (Rect point_1 wdth hght) point_2 = (Rect (addPt point_1 point_2) wdth hght)
-\end{lstlisting}

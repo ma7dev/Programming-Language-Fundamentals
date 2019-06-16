@@ -1,7 +1,0 @@
-\begin{lstlisting}[language=haskell]
-detach :: Node -> Graph -> Graph
-detach node [] = []
-detach node ((source,destination):tail) =
-    if node == source || node == destination then do detach node tail
-    else do [(source,destination)] ++ detach node tail
-\end{lstlisting}

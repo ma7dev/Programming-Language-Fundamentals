@@ -1,6 +1,0 @@
-\begin{lstlisting}[language=haskell]
-bbox :: Shape -> BBox
-bbox (Pt point) = (point,point)
-bbox (Circle (x,y) r) = ((x-r, y-r), (x+r, y+r))
-bbox (Rect (x,y) wdth hght) = ((x,y), (x+wdth, y+hght))
-\end{lstlisting}
