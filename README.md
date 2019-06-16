@@ -1,6 +1,6 @@
 # Programming Language Fundamentals
 
-In this repository, you will find our solutions for Functional Programming (CS-381) at Oregon State University.
+In this repository, you will find our solutions for Programming Language Fundamentals (CS-381) at Oregon State University.
 
 ## Contributors
 
